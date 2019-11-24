@@ -3,10 +3,11 @@ FROM node:10-alpine
 ENV NODE_ENV production
 
 WORKDIR /quickchart
-
-RUN apk add --no-cache --virtual .build-deps git yarn build-base g++ python
-RUN apk add --no-cache --virtual .npm-deps cairo-dev pango-dev libjpeg-turbo-dev
-RUN apk add --no-cache --virtual .fonts libmount ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family ttf-ancient-fonts font-noto fontconfig
+RUN apk update \
+&&  apk add --no-cache --virtual .build-deps git yarn build-base g++ python \
+&&  apk add --no-cache --virtual .npm-deps cairo-dev pango-dev libjpeg-turbo-dev
+RUN apk --update add fontconfig \
+&&  apk add --no-cache --virtual .fonts libmount ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family  font-noto
 
 COPY package*.json .
 COPY yarn.lock .
